@@ -89,9 +89,14 @@ static inline void SetSumCount(struct EC11 *this, int count)
     this->sumCount = count;
 }
 
-static inline unsigned int GetModCount(struct EC11 *this)
+static unsigned int GetModCount(struct EC11 *this)
 {
-    return (this->sumCount % this->modulus);
+    int modCount = 0;
+
+    modCount = this->sumCount % (int)this->modulus;
+    modCount += (int)this->modulus;
+
+    return modCount % this->modulus;
 }
 
 static void SetModulus(struct EC11 *this, int modulus)
